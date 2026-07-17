@@ -52,6 +52,11 @@ export type Post = Prisma.PostModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model Project
+ * 
+ */
+export type Project = Prisma.ProjectModel
+/**
  * Model Account
  * 
  */
