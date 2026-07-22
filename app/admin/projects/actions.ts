@@ -26,7 +26,7 @@ function parseTechStack(raw: string): string[] {
 
 export async function createProject(formData: FormData) {
   const session = await auth();
-  if (!session?.user) redirect("/login");
+  if (!session?.user?.isAdmin) redirect("/");
 
   const title = formData.get("title") as string;
   const description = formData.get("description") as string;

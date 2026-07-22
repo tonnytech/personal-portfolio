@@ -13,14 +13,22 @@ function slugify(title: string) {
     .replace(/\s+/g, "-");
 }
 
+function parseTags(raw: string): string[] {
+  return raw
+    .split(",")
+    .map((t) => t.trim())
+    .filter(Boolean);
+}
+
 export async function createPost(formData: FormData) {
   const session = await auth();
-  if (!session?.user) redirect("/login");
+  if (!session?.user?.isAdmin) redirect("/");
 
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
   const published = formData.get("published") === "on";
   const featured = formData.get("featured") === "on";
+  const tags = parseTags(formData.get("tags") as string);
 
   await prisma.post.create({
     data: {
@@ -28,6 +36,7 @@ export async function createPost(formData: FormData) {
       slug: slugify(title),
       content,
       published,
+      tags,
       featured,
     },
   });
@@ -45,10 +54,11 @@ export async function updatePost(id: string, formData: FormData) {
   const content = formData.get("content") as string;
   const published = formData.get("published") === "on";
    const featured = formData.get("featured") === "on";
+    const tags = parseTags(formData.get("tags") as string);
 
   await prisma.post.update({
     where: { id },
-    data: { title, content, published, featured, },
+    data: { title, content, published, featured, tags, },
   });
 
   revalidatePath("/admin");

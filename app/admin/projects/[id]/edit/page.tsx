@@ -10,7 +10,7 @@ export default async function EditProjectPage({
   params: Promise<{ id: string }>;
 }) {
   const session = await auth();
-  if (!session?.user) redirect("/login");
+  if (!session?.user?.isAdmin) redirect("/");
 
   const { id } = await params;
 

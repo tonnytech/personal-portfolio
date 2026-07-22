@@ -385,6 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Post: 'Post',
+  Subscriber: 'Subscriber',
   User: 'User',
   Project: 'Project',
   Account: 'Account',
@@ -405,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "post" | "user" | "project" | "account" | "session" | "verificationToken"
+    modelProps: "post" | "subscriber" | "user" | "project" | "account" | "session" | "verificationToken"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -480,6 +481,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PostCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PostCountAggregateOutputType> | number
+        }
+      }
+    }
+    Subscriber: {
+      payload: Prisma.$SubscriberPayload<ExtArgs>
+      fields: Prisma.SubscriberFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SubscriberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SubscriberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
+        }
+        findFirst: {
+          args: Prisma.SubscriberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SubscriberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
+        }
+        findMany: {
+          args: Prisma.SubscriberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>[]
+        }
+        create: {
+          args: Prisma.SubscriberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
+        }
+        createMany: {
+          args: Prisma.SubscriberCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SubscriberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>[]
+        }
+        delete: {
+          args: Prisma.SubscriberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
+        }
+        update: {
+          args: Prisma.SubscriberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
+        }
+        deleteMany: {
+          args: Prisma.SubscriberDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SubscriberUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SubscriberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>[]
+        }
+        upsert: {
+          args: Prisma.SubscriberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubscriberPayload>
+        }
+        aggregate: {
+          args: Prisma.SubscriberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSubscriber>
+        }
+        groupBy: {
+          args: Prisma.SubscriberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubscriberGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SubscriberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SubscriberCountAggregateOutputType> | number
         }
       }
     }
@@ -899,11 +974,21 @@ export const PostScalarFieldEnum = {
   content: 'content',
   published: 'published',
   featured: 'featured',
+  tags: 'tags',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type PostScalarFieldEnum = (typeof PostScalarFieldEnum)[keyof typeof PostScalarFieldEnum]
+
+
+export const SubscriberScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  createdAt: 'createdAt'
+} as const
+
+export type SubscriberScalarFieldEnum = (typeof SubscriberScalarFieldEnum)[keyof typeof SubscriberScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -912,7 +997,8 @@ export const UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   emailVerified: 'emailVerified',
-  image: 'image'
+  image: 'image',
+  isAdmin: 'isAdmin'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1174,6 +1260,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   post?: Prisma.PostOmit
+  subscriber?: Prisma.SubscriberOmit
   user?: Prisma.UserOmit
   project?: Prisma.ProjectOmit
   account?: Prisma.AccountOmit

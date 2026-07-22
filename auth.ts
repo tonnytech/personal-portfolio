@@ -12,6 +12,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
   },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.isAdmin = (user as { isAdmin?: boolean }).isAdmin ?? false;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.isAdmin = token.isAdmin as boolean;
+      }
+      return session;
+    },
+  },
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID,

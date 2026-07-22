@@ -4,7 +4,7 @@ import { createProject } from "../actions";
 
 export default async function NewProjectPage() {
   const session = await auth();
-  if (!session?.user) redirect("/login");
+  if (!session?.user?.isAdmin) redirect("/login");
 
   return (
     <main className='max-w-2xl mx-auto py-10 px-4'>

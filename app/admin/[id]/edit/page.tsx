@@ -10,7 +10,7 @@ export default async function EditPostPage({
   params: Promise<{ id: string }>;
 }) {
   const session = await auth();
-  if (!session?.user) redirect("/login");
+  if (!session?.user?.isAdmin) redirect("/");
 
   const { id } = await params;
 
@@ -39,6 +39,13 @@ export default async function EditPostPage({
           className='border rounded-lg px-3 py-2'
         /> */}
         <MarkdownEditorField name='content' defaultValue={post.content} />
+        <input
+          name='tags'
+          type='text'
+          defaultValue={post.tags.join(", ")}
+          placeholder='Tags, comma-separated'
+          className='border rounded-lg px-3 py-2'
+        />
         <label className='flex items-center gap-2 text-sm'>
           <input
             type='checkbox'

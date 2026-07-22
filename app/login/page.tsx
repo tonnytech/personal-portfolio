@@ -1,6 +1,10 @@
 import { signIn } from "../../auth";
+import { auth } from "../../auth";
+import { redirect } from "next/navigation";
 
-export default function LoginPage() {
+export default async function LoginPage() {
+    const session = await auth();
+    if (session?.user) redirect("/");
   return (
     <main className='max-w-sm mx-auto py-16 px-4'>
       <h1 className='text-2xl font-bold mb-8 text-center'>Sign In</h1>
