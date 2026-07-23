@@ -4,6 +4,7 @@ import FeaturedBlogs from "./components/FeaturedBlogs";
 import Tags from "./components/Tags";
 import Portfolio from "./components/Port";
 import Newsletter from "./components/Newsletter";
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   const [featuredProjects, featuredPosts] = await Promise.all([

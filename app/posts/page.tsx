@@ -1,6 +1,7 @@
 import NextLink from "next/link";
 import { prisma } from "../../lib/prisma";
 import BlogHero from "../components/BlogHero";
+export const dynamic = "force-dynamic";
 
 export default async function PostsPage() {
   const posts = await prisma.post.findMany({

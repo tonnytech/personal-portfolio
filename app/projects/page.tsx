@@ -1,6 +1,7 @@
 import { prisma } from "../../lib/prisma";
 import Image from "next/image";
 import NextLink from "next/link";
+export const dynamic = "force-dynamic";
 
 export default async function ProjectsPage() {
   // Sort featured projects first, then by creation date

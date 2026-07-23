@@ -2,6 +2,7 @@ import { prisma } from "../../../lib/prisma";
 import { notFound } from "next/navigation";
 import NextLink from "next/link";
 import MarkdownRenderer from "../../components/MarkdownRenderer";
+export const dynamic = "force-dynamic";
 
 export default async function PostPage({
   params,
