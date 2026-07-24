@@ -4,6 +4,13 @@ import { prisma } from "../../lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 
+const MAX_TITLE_LENGTH = 40;
+
+function truncateText(text: string, maxLength: number) {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trimEnd() + "...";
+}
+
 export default async function AdminPage() {
   const session = await auth();
   if (!session?.user) redirect("/");
@@ -147,8 +154,10 @@ export default async function AdminPage() {
                 className='group border border-gray-200 dark:border-gray-800 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-gray-900 hover:border-gray-300 dark:hover:border-gray-700 transition-all shadow-sm'>
                 <div className='space-y-1.5 min-w-0'>
                   <div className='flex items-center gap-2 flex-wrap'>
-                    <h3 className='font-semibold text-gray-900 dark:text-white group-hover:text-red-500 transition-colors truncate'>
-                      {post.title}
+                    <h3
+                      title={post.title}
+                      className='font-semibold text-gray-900 dark:text-white group-hover:text-red-500 transition-colors truncate'>
+                      {truncateText(post.title, MAX_TITLE_LENGTH)}
                     </h3>
 
                     {/* Status Badges */}

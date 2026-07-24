@@ -9,6 +9,13 @@ type Post = {
   createdAt: Date;
 };
 
+const MAX_TITLE_LENGTH = 40;
+
+function truncateText(text: string, maxLength: number) {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength).trimEnd() + "...";
+}
+
 const FeaturedBlogs = ({
   posts,
   postsIsLoading,
@@ -16,7 +23,6 @@ const FeaturedBlogs = ({
   posts: Post[];
   postsIsLoading: boolean;
 }) => {
-
   return (
     <>
       <h1 className='font-cond font-bold text-gray-800 dark:text-white text-xl md:px-0 pb-2'>
@@ -49,8 +55,9 @@ const FeaturedBlogs = ({
                   </svg>
                   <Link
                     href={`/posts/${post.slug}`}
+                    title={post.title}
                     className='pl-6 hover:underline h-6 overflow-hidden'>
-                    {post.title}
+                    {truncateText(post.title, MAX_TITLE_LENGTH)}
                   </Link>
                 </div>
                 <div className='text-xs'>
