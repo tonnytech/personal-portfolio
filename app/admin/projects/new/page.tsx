@@ -4,7 +4,7 @@ import { createProject } from "../actions";
 
 export default async function NewProjectPage() {
   const session = await auth();
-  if (!session?.user?.isAdmin) redirect("/login");
+  if (!session?.user?.isAdmin) redirect("/");
 
   return (
     <main className='max-w-2xl mx-auto py-10 px-4'>
@@ -12,6 +12,7 @@ export default async function NewProjectPage() {
 
       <form
         action={createProject}
+        encType='multipart/form-data'
         className='flex flex-col gap-4'>
         <input
           name='title'
