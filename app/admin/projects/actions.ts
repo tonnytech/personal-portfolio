@@ -36,6 +36,11 @@ export async function createProject(formData: FormData) {
   const featured = formData.get("featured") === "on";
   const imageFile = formData.get("image") as File;
 
+  // Ensure file exists and is not empty
+  if (!imageFile || imageFile.size === 0) {
+    throw new Error("No image file uploaded");
+  }
+
   const imageUrl = await uploadImage(imageFile);
 
   await prisma.project.create({
